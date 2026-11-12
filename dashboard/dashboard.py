@@ -1,7 +1,9 @@
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pathlib import Path
 
 # Konfigurasi halaman Streamlit
 st.set_page_config(
@@ -13,10 +15,22 @@ st.set_page_config(
 # Load Data
 @st.cache_data
 def load_data():
-    df = pd.read_csv("main_data.csv")
+    # Lokasi folder dashboard.py
+    current_dir = Path(__file__).resolve().parent
+
+    # Lokasi file CSV di folder utama project
+    data_path = current_dir.parent / "main_data.csv"
+
+    # Periksa keberadaan file
+    if not data_path.exists():
+        st.error(f"File dataset tidak ditemukan: {data_path}")
+        st.stop()
+
+    df = pd.read_csv(data_path)
     return df
 
 df = load_data()
+
 
 # Sidebar untuk Filter
 st.sidebar.header("🔍 Filter Data Dashboard")
