@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,10 +11,18 @@ st.set_page_config(
     layout="wide"
 )
 
-# Load Data
+# Load Data dengan jalur dinamis yang aman
 @st.cache_data
 def load_data():
-    df = pd.read_csv("main_data.csv")
+    # Mendapatkan direktori tempat file dashboard.py berada
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(base_dir, "main_data.csv")
+    
+    # Jika tidak ketemu di folder yang sama, cari di folder utama (root)
+    if not os.path.exists(file_path):
+        file_path = os.path.join(os.path.dirname(base_dir), "main_data.csv")
+        
+    df = pd.read_csv(file_path)
     return df
 
 df = load_data()
