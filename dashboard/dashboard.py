@@ -35,7 +35,7 @@ selected_station = st.sidebar.selectbox(
     options=station_options
 )
 
-# 2. Filter Tahun dengan opsi "All" (Aman untuk tipe data)
+# 2. Filter Tahun dengan opsi "All"
 years_list = sorted(list(df['year'].unique()))
 year_options = ["All"] + [str(y) for y in years_list]
 selected_year_str = st.sidebar.selectbox(
@@ -56,14 +56,6 @@ if selected_year_str != "All":
 # Judul Utama Dashboard
 st.title("🌍 Dashboard Analisis Kualitas Udara (Air Quality)")
 st.markdown("Dashboard interaktif ini menyajikan hasil analisis perbandingan polusi udara dan faktor meteorologi antara stasiun pemantauan secara komprehensif.")
-
-# Penjelasan Istilah Polutan dengan Bahasa Sederhana
-with st.expander("ℹ️ Mengenal Istilah Polutan & Parameter (Klik untuk membaca)"):
-    st.markdown("""
-    - **$PM_{2.5}$ (Partikel Debu Halus):** Partikel polusi udara berukuran super kecil (lebih halus dari sehelai rambut) yang berasal dari asap kendaraan, pembakaran, dan debu. Mudah terhirup masuk ke paru-paru dan memengaruhi kesehatan pernapasan.
-    - **$SO_2$ (Sulfur Dioksida):** Gas berbau tajam yang dihasilkan dari pembakaran batu bara, aktivitas pabrik industri, dan mesin kendaraan berat. Dapat menyebabkan iritasi saluran napas dan memicu hujan asam.
-    - **Kecepatan Angin (WSPM):** Kecepatan pergerakan angin (meter/detik) yang berperan menyapu dan menyebarkan polutan agar tidak menumpuk di satu area.
-    """)
 
 # Periksa apakah data tersedia setelah difilter
 if filtered_df.empty:
@@ -104,10 +96,9 @@ else:
     ax.grid(True, linestyle='--', alpha=0.6)
     st.pyplot(fig)
     
-    # Insight Grafik 1
     st.markdown("""
     > **💡 Insight Grafik Tren Bulanan:**
-    > - Polutan $PM_{2.5}$ menunjukkan pola musiman yang signifikan, di mana tingkat konsentrasi cenderung melonjak naik pada bulan-bulan musim dingin (awal dan akhir tahun).
+    > - Polutan PM2.5 menunjukkan pola musiman yang signifikan, di mana tingkat konsentrasi cenderung melonjak naik pada bulan-bulan musim dingin (awal dan akhir tahun).
     > - Dengan memilih opsi "All" pada filter stasiun, pengguna dapat melihat perbandingan langsung tren antarwilayah secara makro tanpa batasan satu lokasi saja.
     """)
 
@@ -129,11 +120,10 @@ else:
     ax2.grid(True, linestyle='--', alpha=0.6)
     st.pyplot(fig2)
     
-    # Insight Grafik 2
     st.markdown("""
     > **💡 Insight Grafik Korelasi Angin & Polutan:**
-    > - Sebaran data memperlihatkan tren korelasi negatif antara kecepatan angin (*WSPM*) dan kadar gas $SO_2$.
-    > - Kecepatan angin yang tinggi membantu mempercepat proses dispersi (penyebaran) gas polutan di udara, sehingga konsentrasinya di permukaan tanah berkurang.
+    > - Sebaran data memperlihatkan tren korelasi negatif antara kecepatan angin (WSPM) dan kadar gas Sulfur Dioksida (SO2).
+    > - Kecepatan angin yang lebih tinggi membantu mempercepat proses dispersi (penyebaran) gas polutan di udara, sehingga konsentrasinya di permukaan tanah berkurang.
     """)
 
     # 4. Visualisasi Analisis Lanjutan: Distribusi Kategori Kualitas Udara
@@ -157,11 +147,10 @@ else:
         ax3.grid(axis='y', linestyle='--', alpha=0.6)
         st.pyplot(fig3)
         
-        # Insight Grafik 3
         st.markdown("""
         > **💡 Insight Analisis Lanjutan (Kategori Kualitas Udara):**
         > - Sebagian besar rentang waktu berada dalam kategori "Baik" hingga "Sedang". 
-        > - Namun, kemunculan kategori "Tidak Sehat" hingga "Sangat Tidak Sehat" perlu diwaspadai karena menunjukkan durasi paparan polusi berbahaya bagi kesehatan masyarakat di wilayah stasiun terkait.
+        > - Namun, kemunculan kategori "Tidak Sehat" hingga "Sangat Sehat" perlu diwaspadai karena menunjukkan durasi paparan polusi berbahaya bagi kesehatan masyarakat di wilayah stasiun terkait.
         """)
 
 # Footer info
