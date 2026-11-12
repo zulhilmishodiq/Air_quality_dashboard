@@ -15,21 +15,17 @@ st.set_page_config(
 # Load Data
 @st.cache_data
 def load_data():
-    # Lokasi folder dashboard.py
     current_dir = Path(__file__).resolve().parent
+    data_path = current_dir / "main_data.csv"
 
-    # Lokasi file CSV di folder utama project
-    data_path = current_dir.parent / "main_data.csv"
-
-    # Periksa keberadaan file
     if not data_path.exists():
-        st.error(f"File dataset tidak ditemukan: {data_path}")
+        st.error(f"Dataset tidak ditemukan: {data_path}")
         st.stop()
 
-    df = pd.read_csv(data_path)
-    return df
+    return pd.read_csv(data_path)
 
 df = load_data()
+
 
 
 # Sidebar untuk Filter
